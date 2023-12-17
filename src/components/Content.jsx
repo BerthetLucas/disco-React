@@ -2,7 +2,7 @@ import { records } from "../assets/data/allRecords";
 import { useState } from "react";
 
 function Content({ stockOnly, byTrie }) {
-  const [liste] = useState(records);
+  const [liste, setListe] = useState(records);
 
   // Use method slice() to generate a new tab in order to generate a new tab
   // this allowed to reset easly the filter at "all" value.
@@ -23,6 +23,19 @@ function Content({ stockOnly, byTrie }) {
     if (byTrie === "all") {
       return liste;
     } else return liste;
+  };
+
+  const stockPlus = (index) => {
+    listeTrie()[index].stock++;
+    // Change directely the state of liste to get an immediate change
+    setListe([...liste]);
+   
+  };
+
+  const stockMinus = (index) => {
+    if (listeTrie()[index].stock > 0)
+    listeTrie()[index].stock--;
+    setListe([...liste]);
   };
 
   return (
@@ -102,6 +115,7 @@ function Content({ stockOnly, byTrie }) {
                         <button
                           type="button"
                           className="border border-teal-500 bg-teal-500 text-white rounded-md px-4 py-2 m-2 ease select-none hover:bg-teal-400"
+                          onClick={()=>stockPlus(index)}
                         >
                           {" "}
                           +{" "}
@@ -109,6 +123,7 @@ function Content({ stockOnly, byTrie }) {
                         <button
                           type="button"
                           className="border border-teal-500 bg-teal-500 text-white rounded-md px-4 py-2 m-2 ease select-none hover:bg-purple-800"
+                          onClick={()=>stockMinus(index)}
                         >
                           {" "}
                           -{" "}
